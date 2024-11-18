@@ -1,40 +1,27 @@
-import SidebarPage from './components/SidebarPage.js'
 import EditorPage from './components/EditorPage.js'
+import SidebarPage from './components/sidebar/SidebarPage.js'
 
 export default function App({ $target }) {
-    const dummyData = [
-        {
-            id: 1,
-            title: '제목1',
-            documents: [
-                {
-                    id: 2,
-                    title: '제목2',
-                    documents: [
-                        {
-                            id: 3,
-                            title: '제목3',
-                            documents: [],
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            id: 4,
-            title: '제목4',
-            documents: [],
-        },
-    ]
+    const editorDummyData = {
+        title: '노션을 만들자',
+        content: '노션 만들기~',
+    }
+
     const $listContainer = document.createElement('div')
     const $editorContainer = document.createElement('div')
 
-    $target.appendChild($editorContainer)
     $target.appendChild($listContainer)
+    $target.appendChild($editorContainer)
 
-    const sidebarpage = new SidebarPage({
-        $target: $editorContainer,
-        initalState: dummyData,
+    const initalState = []
+    const sidebarPage = new SidebarPage({
+        $target: $listContainer,
+        initalState,
     })
-    const editorpage = new EditorPage({ $target: $listContainer })
+    sidebarPage.setState()
+
+    const editorPage = new EditorPage({
+        $target: $editorContainer,
+        initialState: editorDummyData,
+    })
 }
